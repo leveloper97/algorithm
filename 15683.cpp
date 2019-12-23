@@ -1,7 +1,7 @@
 /* 
 ** BOJ 15683
-** ¹®Á¦ À¯Çü : ½Ã¹Ä·¹ÀÌ¼Ç 
-** ¹®Á¦ Á¦¸ñ : °¨½Ã 
+** ë¬¸ì œ ìœ í˜• : ì‹œë®¬ë ˆì´ì…˜ 
+** ë¬¸ì œ ì œëª© : ê°ì‹œ 
 ** https://www.acmicpc.net/problem/15683
 */
 
@@ -12,18 +12,18 @@
 
 using namespace std;
 int result;
-int n, m; // »ç¹«½Ç Å©±â 
-int k; // CCTV °³¼ö 
-queue <pair<int, int> > cctv; //cctv ÀúÀå¿ë
-int map[8][8]; // ¸Ê ¹è¿­ 
-bool visited[8][8] = {false}; // ¹æ¹® È®ÀÎ ¹è¿­ 
-void search(); // ºĞ±â¿ë ÇÔ¼ö 
-int bfs(int, int, int); //Å½»ö ÈÄ 
-int go_toward(int, int, int); //½ÇÁúÀûÀÎ Å½»ö 
-void check_visited(int, int, int); // ¹æ¹®Ã³¸® 
+int n, m; // ì‚¬ë¬´ì‹¤ í¬ê¸° 
+int k; // CCTV ê°œìˆ˜ 
+queue <pair<int, int> > cctv; //cctv ì €ì¥ìš©
+int map[8][8]; // ë§µ ë°°ì—´ 
+bool visited[8][8] = {false}; // ë°©ë¬¸ í™•ì¸ ë°°ì—´ 
+void search(); // ë¶„ê¸°ìš© í•¨ìˆ˜ 
+int bfs(int, int, int); //íƒìƒ‰ í›„ 
+int go_toward(int, int, int); //ì‹¤ì§ˆì ì¸ íƒìƒ‰ 
+void check_visited(int, int, int); // ë°©ë¬¸ì²˜ë¦¬ 
 
 int main () {
-   // ÀÔ·Â 
+   // ì…ë ¥ 
    scanf("%d%d", &n, &m);
    result = n * m;
    for (int y = 0; y < n; y++) {
@@ -38,9 +38,9 @@ int main () {
          }
       }
    }
-   // ·ÎÁ÷ 
+   // ë¡œì§ 
    search();
-   // °á°ú 
+   // ê²°ê³¼ 
    printf("%d", result);
    return 0;
 }
@@ -50,45 +50,45 @@ void search() {
       int x = cctv.front().second;
       int y = cctv.front().first;
       cctv.pop();
-      if (map[y][x] == 1) { // 1¹ø cctv (µ¿, ¼­, ³², ºÏ) 
+      if (map[y][x] == 1) { // 1ë²ˆ cctv (ë™, ì„œ, ë‚¨, ë¶) 
          result -= bfs(1, y, x);
-       //  printf("result °¨¼Ò, 1ÀÌ¶ó¼­:%d\n", result);
-      } else if (map[y][x] == 2) { // 2¹ø cctv (³²ºÏ, µ¿¼­) 
+       //  printf("result ê°ì†Œ, 1ì´ë¼ì„œ:%d\n", result);
+      } else if (map[y][x] == 2) { // 2ë²ˆ cctv (ë‚¨ë¶, ë™ì„œ) 
          result -= bfs(2, y, x);
-       //  printf("result °¨¼Ò, 2ÀÌ¶ó¼­:%d\n", result);
-      } else if (map[y][x] == 3) { // 3¹ø cctv (ºÏµ¿, µ¿³², ³²¼­, ¼­ºÏ) 
+       //  printf("result ê°ì†Œ, 2ì´ë¼ì„œ:%d\n", result);
+      } else if (map[y][x] == 3) { // 3ë²ˆ cctv (ë¶ë™, ë™ë‚¨, ë‚¨ì„œ, ì„œë¶) 
          result -= bfs(3, y, x);
-    //     printf("result °¨¼Ò, 3ÀÌ¶ó¼­:%d\n", result);
-      } else if (map[y][x] == 4) { // 4¹ø cctv (ºÏµ¿¼­, ºÏµ¿³², µ¿³²¼­, ¼­³²ºÏ) 
+    //     printf("result ê°ì†Œ, 3ì´ë¼ì„œ:%d\n", result);
+      } else if (map[y][x] == 4) { // 4ë²ˆ cctv (ë¶ë™ì„œ, ë¶ë™ë‚¨, ë™ë‚¨ì„œ, ì„œë‚¨ë¶) 
          result -= bfs(4, y, x);
-       //  printf("result °¨¼Ò, 4ÀÌ¶ó¼­:%d\n", result);
-      } else if (map[y][x] == 5) { // 5¹ø cctv (µ¿¼­³²ºÏ) 
+       //  printf("result ê°ì†Œ, 4ì´ë¼ì„œ:%d\n", result);
+      } else if (map[y][x] == 5) { // 5ë²ˆ cctv (ë™ì„œë‚¨ë¶) 
          result -= bfs(5, y, x);
-      //   printf("result °¨¼Ò, 5ÀÌ¶ó¼­:%d\n", result);
+      //   printf("result ê°ì†Œ, 5ì´ë¼ì„œ:%d\n", result);
       }
    }   
 }
-// ³Êºñ Å½»ö ÈÄ °¡Àå Å« ³ğÀ» ¸®ÅÏÇÑ´Ù. 
+// ë„ˆë¹„ íƒìƒ‰ í›„ ê°€ì¥ í° ë†ˆì„ ë¦¬í„´í•œë‹¤. 
 int bfs(int index, int y, int x) {
-//   printf("°Ë»öÇÒ y: %d, °Ë»öÇÒ x: %d\n", y ,x);
+//   printf("ê²€ìƒ‰í•  y: %d, ê²€ìƒ‰í•  x: %d\n", y ,x);
    int max = 0;
 //   int visited_x, visited_y, direction;
 	int direction = 0; 
    
    if (index == 1) {
       for (int i = 1; i < 5; i++) {
-//         printf("%d Å½»ö ½ÃÀÛ\n", index);
+//         printf("%d íƒìƒ‰ ì‹œì‘\n", index);
          int temp = go_toward(i, y, x);
          if (max < temp) {
             max = temp;
             direction = i;
          }
       }
-      if (max != 0 && direction != 0) { // ¹æ¹® Ã³¸® 
+      if (max != 0 && direction != 0) { // ë°©ë¬¸ ì²˜ë¦¬ 
       	check_visited(direction, y, x);
       }
    } else if (index == 2) {
-//      printf("%d Å½»ö ½ÃÀÛ\n", index);
+//      printf("%d íƒìƒ‰ ì‹œì‘\n", index);
       int temp = go_toward(1, y, x) + go_toward(3, y, x);
       int temp2 = go_toward(2, y, x) + go_toward(4, y, x);
       if (temp < temp2) {
@@ -102,7 +102,7 @@ int bfs(int index, int y, int x) {
          check_visited(3, y, x);
          direction = 2;
       }
-      if (max != 0 && direction != 0) { // ¹æ¹® Ã³¸® 
+      if (max != 0 && direction != 0) { // ë°©ë¬¸ ì²˜ë¦¬ 
 	  	if (direction == 1) {
 	  		check_visited(2, y, x);
 	  		check_visited(4, y, x);
@@ -132,7 +132,7 @@ int bfs(int index, int y, int x) {
          max = temp4;
          direction = 4;
       }
-	  if (max != 0 && direction != 0) { // ¹æ¹® Ã³¸® 
+	  if (max != 0 && direction != 0) { // ë°©ë¬¸ ì²˜ë¦¬ 
 	  	if (direction == 1) {
 	  		check_visited(1, y, x);
 			check_visited(2, y, x);
@@ -148,7 +148,7 @@ int bfs(int index, int y, int x) {
 		}
 	  }   
    } else if (index == 4) {
-    //  printf("%d Å½»ö ½ÃÀÛ\n", index);
+    //  printf("%d íƒìƒ‰ ì‹œì‘\n", index);
       int temp = go_toward(1, y, x) + go_toward(2, y, x) + go_toward(3, y, x);
       if (temp > max) {
       	max = temp;
@@ -169,7 +169,7 @@ int bfs(int index, int y, int x) {
          max = temp4;
          direction = 4;
       }
-	  if (max != 0 && direction != 0) { // ¹æ¹® Ã³¸® 
+	  if (max != 0 && direction != 0) { // ë°©ë¬¸ ì²˜ë¦¬ 
 	  	if (direction == 1) {
 	  		check_visited(1, y, x);
 			check_visited(2, y, x);
@@ -190,7 +190,7 @@ int bfs(int index, int y, int x) {
 	  }   
 	        
    } else if (index == 5) {
-     // printf("%d Å½»ö ½ÃÀÛ\n", index);
+     // printf("%d íƒìƒ‰ ì‹œì‘\n", index);
       max = go_toward(1, y, x) + go_toward(2, y, x) + go_toward(3, y, x) + go_toward(4, y, x);
       check_visited(1, y, x);
       check_visited(2, y, x);
@@ -203,8 +203,8 @@ int bfs(int index, int y, int x) {
 //  
 int go_toward(int dir, int y, int x) {
    int temp = 0;
-   if (dir == 1) { // À§ÂÊ Âß Å½»ö 
-//      printf("%d ½ÃÀÛ", dir);
+   if (dir == 1) { // ìœ„ìª½ ì­‰ íƒìƒ‰ 
+//      printf("%d ì‹œì‘", dir);
       while (y - 1 >= 0) { 
          if (map[y-1][x] == 6) {
             break;
@@ -214,10 +214,10 @@ int go_toward(int dir, int y, int x) {
          }
          y--;
       }
-   } else if (dir == 2) { // ¿À¸¥ÂÊ Âß Å½»ö
-//   printf("%d ½ÃÀÛ", dir);
-      while (x + 1 <= m - 1) { // ÀÎµ¦½Ì ÃÊ°ú¿¡ µû¸¥ Å»Ãâ
-         if (map[y][x+1] == 6) { // º®À» ¸¸³²¿¡ µû¸¥ Å»Ãâ 
+   } else if (dir == 2) { // ì˜¤ë¥¸ìª½ ì­‰ íƒìƒ‰
+//   printf("%d ì‹œì‘", dir);
+      while (x + 1 <= m - 1) { // ì¸ë±ì‹± ì´ˆê³¼ì— ë”°ë¥¸ íƒˆì¶œ
+         if (map[y][x+1] == 6) { // ë²½ì„ ë§Œë‚¨ì— ë”°ë¥¸ íƒˆì¶œ 
             break;
          }
          if (map[y][x+1] == 0 && visited[y][x+1] == false) {
@@ -225,8 +225,8 @@ int go_toward(int dir, int y, int x) {
          }
          x++;
       }
-   } else if (dir == 3) { // ¾Æ·¡ÂÊ Âß Å½»ö
-//   printf("%d ½ÃÀÛ", dir);
+   } else if (dir == 3) { // ì•„ë˜ìª½ ì­‰ íƒìƒ‰
+//   printf("%d ì‹œì‘", dir);
       while (y + 1 <= n - 1) { 
          if (map[y+1][x] == 6) {
             break;
@@ -237,10 +237,10 @@ int go_toward(int dir, int y, int x) {
          }
          y++;
       }
-   } else if (dir == 4) { // ¿ŞÂÊ Âß Å½»ö
- //  printf("%d ½ÃÀÛ", dir);
-      while (x - 1 >= 0) { // ÀÎµ¦½Ì ÃÊ°ú¿¡ µû¸¥ Å»Ãâ
-         if (map[y][x-1] == 6) { // º®À» ¸¸³²¿¡ µû¸¥ Å»Ãâ 
+   } else if (dir == 4) { // ì™¼ìª½ ì­‰ íƒìƒ‰
+ //  printf("%d ì‹œì‘", dir);
+      while (x - 1 >= 0) { // ì¸ë±ì‹± ì´ˆê³¼ì— ë”°ë¥¸ íƒˆì¶œ
+         if (map[y][x-1] == 6) { // ë²½ì„ ë§Œë‚¨ì— ë”°ë¥¸ íƒˆì¶œ 
             break;
          }
          if (map[y][x-1] == 0 && visited[y][x-1] == false) {
@@ -250,13 +250,13 @@ int go_toward(int dir, int y, int x) {
          x--;
       }   
    }
-   //printf("¸®ÅÏ,%d\n", temp);
+   //printf("ë¦¬í„´,%d\n", temp);
    return temp;
 }
 
 void check_visited(int dir, int y, int x) {
    int temp = 0;
-   if (dir == 1) { // À§ÂÊ Âß Å½»ö 
+   if (dir == 1) { // ìœ„ìª½ ì­‰ íƒìƒ‰ 
 
       while (y - 1 >= 0) { 
          if (map[y-1][x] == 6) {
@@ -267,9 +267,9 @@ void check_visited(int dir, int y, int x) {
          }
          y--;
       }
-   } else if (dir == 2) { // ¿À¸¥ÂÊ Âß Å½»ö
-      while (x + 1 <= m - 1) { // ÀÎµ¦½Ì ÃÊ°ú¿¡ µû¸¥ Å»Ãâ
-         if (map[y][x+1] == 6) { // º®À» ¸¸³²¿¡ µû¸¥ Å»Ãâ 
+   } else if (dir == 2) { // ì˜¤ë¥¸ìª½ ì­‰ íƒìƒ‰
+      while (x + 1 <= m - 1) { // ì¸ë±ì‹± ì´ˆê³¼ì— ë”°ë¥¸ íƒˆì¶œ
+         if (map[y][x+1] == 6) { // ë²½ì„ ë§Œë‚¨ì— ë”°ë¥¸ íƒˆì¶œ 
             break;
          }
          if (map[y][x+1] == 0 && visited[y][x+1] == false) {
@@ -278,7 +278,7 @@ void check_visited(int dir, int y, int x) {
          }
          x++;
       }
-   } else if (dir == 3) { // ¾Æ·¡ÂÊ Âß Å½»ö
+   } else if (dir == 3) { // ì•„ë˜ìª½ ì­‰ íƒìƒ‰
       while (y + 1 <= n - 1) { 
          if (map[y+1][x] == 6) {
             break;
@@ -289,9 +289,9 @@ void check_visited(int dir, int y, int x) {
          }
          y++;
       }
-   } else if (dir == 4) { // ¿ŞÂÊ Âß Å½»ö 
-      while (x - 1 >= 0) { // ÀÎµ¦½Ì ÃÊ°ú¿¡ µû¸¥ Å»Ãâ
-         if (map[y][x-1] == 6) { // º®À» ¸¸³²¿¡ µû¸¥ Å»Ãâ 
+   } else if (dir == 4) { // ì™¼ìª½ ì­‰ íƒìƒ‰ 
+      while (x - 1 >= 0) { // ì¸ë±ì‹± ì´ˆê³¼ì— ë”°ë¥¸ íƒˆì¶œ
+         if (map[y][x-1] == 6) { // ë²½ì„ ë§Œë‚¨ì— ë”°ë¥¸ íƒˆì¶œ 
             break;
          }
          if (map[y][x-1] == 0 && visited[y][x-1] == false) {
@@ -303,8 +303,8 @@ void check_visited(int dir, int y, int x) {
    
 }
 /*
-»ı°¢ÇØº¸±â
-1. ÃÖÃÊ¿¡ visited Ã³¸®¸¦ bfsÇÒ¶§¸¶´Ù ÇØÁà¼­ Æ²·È´Ù. 
-2. ½ÇÁúÀûÀ¸·Î ¹æ¹®ÇÑ °÷¿¡¸¸ visited¸¦ true¸¦ ³Ö¾î¾ßÇÑ´Ù. 
-3. ³»°¡ Â§ ÄÚµå´Â ºñÁöÆ®µå Ã³¸®¸¦ ¸Å¹øÇØ¾ßµÇ¼­ ¹ø°Å·Ó´Ù... 
+ìƒê°í•´ë³´ê¸°
+1. ìµœì´ˆì— visited ì²˜ë¦¬ë¥¼ bfsí• ë•Œë§ˆë‹¤ í•´ì¤˜ì„œ í‹€ë ¸ë‹¤. 
+2. ì‹¤ì§ˆì ìœ¼ë¡œ ë°©ë¬¸í•œ ê³³ì—ë§Œ visitedë¥¼ trueë¥¼ ë„£ì–´ì•¼í•œë‹¤. 
+3. ë‚´ê°€ ì§  ì½”ë“œëŠ” ë¹„ì§€íŠ¸ë“œ ì²˜ë¦¬ë¥¼ ë§¤ë²ˆí•´ì•¼ë˜ì„œ ë²ˆê±°ë¡­ë‹¤... 
 */

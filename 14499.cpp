@@ -1,7 +1,7 @@
 /* 
 ** BOJ 14499
-** ¹®Á¦ À¯Çü : BFS
-** ¹®Á¦ Á¦¸ñ : ÁÖ»çÀ§ 
+** ë¬¸ì œ ìœ í˜• : BFS
+** ë¬¸ì œ ì œëª© : ì£¼ì‚¬ìœ„ 
 ** https://www.acmicpc.net/problem/14499
 */
 
@@ -10,12 +10,12 @@
 
 using namespace std;
 
-int dice[6] = {0, }; // ÁÖ»çÀ§ÀÇ »óÅÂ 
-int temp[6] = {0, }; // º¹»ç¿ë ÀÓ½Ã ÁÖ»çÀ§ 
-int y, x; // Áöµµ ÁÂÇ¥ 
-int map[20][20] = {0, }; // Áöµµ 
+int dice[6] = {0, }; // ì£¼ì‚¬ìœ„ì˜ ìƒíƒœ 
+int temp[6] = {0, }; // ë³µì‚¬ìš© ì„ì‹œ ì£¼ì‚¬ìœ„ 
+int y, x; // ì§€ë„ ì¢Œí‘œ 
+int map[20][20] = {0, }; // ì§€ë„ 
 queue <int> q;
-int dice_y, dice_x; // ÁÖ»çÀ§ÀÇ ÁÂÇ¥ 
+int dice_y, dice_x; // ì£¼ì‚¬ìœ„ì˜ ì¢Œí‘œ 
  
 void move_dice(int, int ,int);
 int main() {
@@ -24,32 +24,32 @@ int main() {
 	scanf("%d%d", &dice_y, &dice_x);
 	int cnt;
 	scanf("%d", &cnt);
-	// Áöµµ ÀÔ·Â 
-//	printf("Áöµµ¸¦ ÀÔ·Â¹Ş´Â´Ù\n");
+	// ì§€ë„ ì…ë ¥ 
+//	printf("ì§€ë„ë¥¼ ì…ë ¥ë°›ëŠ”ë‹¤\n");
 	for (int j = 0; j< y; j++) {
 		for (int i = 0; i < x; i++) {
 			scanf("%d", &map[j][i]);
 		}
 	}
-	// ¹æÇâ ÀÔ·Â
-//	printf("¹æÇâ¸¦ ÀÔ·Â¹Ş´Â´Ù\n");
+	// ë°©í–¥ ì…ë ¥
+//	printf("ë°©í–¥ë¥¼ ì…ë ¥ë°›ëŠ”ë‹¤\n");
 	int direction;
 	for (int i = 0; i < cnt; i++) {
 		scanf("%d", &direction);
 		q.push(direction);
 	} 
 	
-	// ·ÎÁ÷
+	// ë¡œì§
 	while(q.empty() == false) {
 		int dir = q.front();
 		q.pop();
-		if (dir == 1) { // µ¿ÂÊ 
+		if (dir == 1) { // ë™ìª½ 
 			move_dice(dice_y, dice_x+1, dir);
-		} else if (dir == 2) { // ¼­ 
+		} else if (dir == 2) { // ì„œ 
 			move_dice(dice_y, dice_x-1, dir);
-		} else if (dir == 3) { // ºÏ 
+		} else if (dir == 3) { // ë¶ 
 			move_dice(dice_y-1, dice_x, dir);
-		} else if (dir == 4) { // ³² 
+		} else if (dir == 4) { // ë‚¨ 
 			move_dice(dice_y+1, dice_x, dir);
 		}
 	} 
@@ -57,18 +57,18 @@ int main() {
 }
 
 void move_dice(int curY, int curX, int dir) {
-//	printf("ÁÖ»çÀ§¸¦ (%d, %d)·Î ÀÌµ¿½ÃÅµ´Ï´Ù.\n", curY, curX);
-//	printf("Áöµµ ÀÎµ¦½º %d%d\n", y, x);
+//	printf("ì£¼ì‚¬ìœ„ë¥¼ (%d, %d)ë¡œ ì´ë™ì‹œí‚µë‹ˆë‹¤.\n", curY, curX);
+//	printf("ì§€ë„ ì¸ë±ìŠ¤ %d%d\n", y, x);
 	if (curY < 0 || curY > y-1 || curX < 0 || curX > x -1) {
-//		printf("ÁÖ»çÀ§°¡ ÀÌµ¿ÇÒ ¼ö ¾ø½À´Ï´Ù.\n"); 
+//		printf("ì£¼ì‚¬ìœ„ê°€ ì´ë™í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n"); 
 		return;
 	}
 	
-	// ÀÓ½Ã º¹»ç 
+	// ì„ì‹œ ë³µì‚¬ 
 	for (int i = 0; i < 6; i++) {
 		temp[i] = dice[i]; 
 	}
-//	printf("ÀÓ½Ã·Î ÁÖ»çÀ§ÀÇ °ªÀ» º¹»çÇÕ´Ï´Ù.\n"); 
+//	printf("ì„ì‹œë¡œ ì£¼ì‚¬ìœ„ì˜ ê°’ì„ ë³µì‚¬í•©ë‹ˆë‹¤.\n"); 
 	for (int i = 0; i < 6; i++) {
 //		 printf("%d\n", temp[i]);
 	}
@@ -95,7 +95,7 @@ void move_dice(int curY, int curX, int dir) {
 		dice[4] = temp[5];
 		dice[5] = temp[1];
 	} else if(dir == 4) {
-//		printf("³²ÂÊÀ¸·Î ÀÌµ¿ÇÕ´Ï´Ù.\n");
+//		printf("ë‚¨ìª½ìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤.\n");
 		dice[0] = temp[1];		
 		dice[1] = temp[5];
 		dice[2] = temp[2];		
@@ -104,28 +104,28 @@ void move_dice(int curY, int curX, int dir) {
 		dice[5] = temp[4];
 	}
 	
-	if (map[curY][curX] == 0) { // Áöµµ°¡ 0ÀÌ¸é ÁÖ»çÀ§¸¦ Áöµµ·Î º¹»ç 
-//		printf("ÁÖ»çÀ§ÀÇ °ª: %dÀ» Áöµµ·Î º¹»çÇÕ´Ï´Ù.", dice[5]);
+	if (map[curY][curX] == 0) { // ì§€ë„ê°€ 0ì´ë©´ ì£¼ì‚¬ìœ„ë¥¼ ì§€ë„ë¡œ ë³µì‚¬ 
+//		printf("ì£¼ì‚¬ìœ„ì˜ ê°’: %dì„ ì§€ë„ë¡œ ë³µì‚¬í•©ë‹ˆë‹¤.", dice[5]);
 		map[curY][curX] = dice[5];
-	} else { // Áöµµ°¡ 0ÀÌ ¾Æ´Ï¸é Ä­À» ÁÖ»çÀ§·Î º¹»ç Ä­Àº 0ÀÌµÈ´Ù. 
-//		printf("ÁöµµÀÇ °ª: %dÀ» ÁÖ»çÀ§·Î º¹»çÇÕ´Ï´Ù.", map[curY][curX]);
+	} else { // ì§€ë„ê°€ 0ì´ ì•„ë‹ˆë©´ ì¹¸ì„ ì£¼ì‚¬ìœ„ë¡œ ë³µì‚¬ ì¹¸ì€ 0ì´ëœë‹¤. 
+//		printf("ì§€ë„ì˜ ê°’: %dì„ ì£¼ì‚¬ìœ„ë¡œ ë³µì‚¬í•©ë‹ˆë‹¤.", map[curY][curX]);
 		dice[5] = map[curY][curX];
 		map[curY][curX] = 0;
 	}
 	dice_y = curY;
 	dice_x = curX;
-	// Áöµµ ¾÷µ¥ÀÌÆ®
-//	printf("È¸ÀüÇÑ °á°úÀÔ´Ï´Ù");
+	// ì§€ë„ ì—…ë°ì´íŠ¸
+//	printf("íšŒì „í•œ ê²°ê³¼ì…ë‹ˆë‹¤");
 		for (int i = 0; i < 6; i++) {
 //		printf("%d", dice[i]);
 	}
 	printf("%d\n", dice[0]);
 }
 /*
-»ı°¢ÇØº¸±â
-ÁÖ»çÀ§µéÀ» ±¼·ÈÀ»¶§ ¹Ù²î´Â À§Ä¡µé¸¸ ³ÖÀ»¶óÇß¾ú´Âµ¥
-temp´Â °è¼Ó º¯ÇÏ±â ‹š¹®¿¡ ÀÎµ¦½º°¡ ¹Ù²îÁö ¾Ê´Â °Íµéµµ ¹Ù²ã¾ßÇß´Ù. 
-¹İº¹¹® ¿¹¿ÜÃ³¸® ¿¬»êÀÚ Àß È®ÀÎÇÏ±â./ 
+ìƒê°í•´ë³´ê¸°
+ì£¼ì‚¬ìœ„ë“¤ì„ êµ´ë ¸ì„ë•Œ ë°”ë€ŒëŠ” ìœ„ì¹˜ë“¤ë§Œ ë„£ì„ë¼í–ˆì—ˆëŠ”ë°
+tempëŠ” ê³„ì† ë³€í•˜ê¸° Â‹Âšë¬¸ì— ì¸ë±ìŠ¤ê°€ ë°”ë€Œì§€ ì•ŠëŠ” ê²ƒë“¤ë„ ë°”ê¿”ì•¼í–ˆë‹¤. 
+ë°˜ë³µë¬¸ ì˜ˆì™¸ì²˜ë¦¬ ì—°ì‚°ì ì˜ í™•ì¸í•˜ê¸°./ 
 */
 
 	
